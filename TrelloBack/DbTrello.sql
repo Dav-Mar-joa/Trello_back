@@ -8,7 +8,7 @@ DROP TABLE IF EXISTS Projet;
 
 
 CREATE TABLE IF NOT EXISTS Projet (
-    Id INTEGER PRIMARY KEY,
+    Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     Nom TEXT NOT NULL,
     Description TEXT,
     DateCreation DATE
@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS Projet (
 
 -- Création de la table Liste
 CREATE TABLE IF NOT EXISTS Liste (
-    Id INTEGER PRIMARY KEY,
+    Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     Nom TEXT NOT NULL,
     IdProjet INTEGER,
     FOREIGN KEY (IdProjet) REFERENCES Projet(Id)
@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS Liste (
 
 -- Création de la table Carte
 CREATE TABLE IF NOT EXISTS Carte (
-    Id INTEGER PRIMARY KEY,
+    Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     Titre TEXT NOT NULL,
     Description TEXT,
     DateCreation DATE,
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS Carte (
 
 -- Création de la table Commentaire
 CREATE TABLE IF NOT EXISTS Commentaire (
-    Id INTEGER PRIMARY KEY,
+    Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     Contenu TEXT,
     DateCreation DATE,
     IdCarte INTEGER,
@@ -44,7 +44,8 @@ CREATE TABLE IF NOT EXISTS Commentaire (
 -- Ajout de données dans la table Projet
 INSERT INTO Projet (Nom, Description, DateCreation) VALUES
     ('Projet A', 'Description du Projet A', '2024-01-03'),
-    ('Projet B', 'Description du Projet B', '2024-01-04');
+    ('Projet B', 'Description du Projet B', '2024-01-04'),
+    ('Projet C', 'Description du Projet C', '2024-01-04');
 
 -- Ajout de données dans la table Liste
 INSERT INTO Liste (Nom, IdProjet) VALUES

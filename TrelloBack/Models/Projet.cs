@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TrelloBack;
+namespace TrelloBack.Models;
 
 public partial class Projet
 {
-    public int Id { get; set; }
+    public int? Id { get; set; } = null!;
 
     public string Nom { get; set; } = null!;
 

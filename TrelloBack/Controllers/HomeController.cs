@@ -8,8 +8,11 @@ namespace TrelloBack.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly DbTrelloContext _context; 
+
+        public HomeController(ILogger<HomeController> logger, DbTrelloContext context)
         {
+            _context = context;
             _logger = logger;
         }
 

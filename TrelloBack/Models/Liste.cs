@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TrelloBack;
+namespace TrelloBack.Models;
 
 public partial class Liste
 {

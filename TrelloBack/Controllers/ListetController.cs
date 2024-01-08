@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading;
 using TrelloBack.Models;
 
 namespace TrelloBack.Controllers
@@ -14,8 +15,8 @@ namespace TrelloBack.Controllers
             _context = context;
             _logger = logger;
         }
-// -- requete pour les listes ---------
-
+        // -- requete pour les listes ---------
+        /*
         [HttpGet]
         [Route("/listes")]
         public IActionResult getListes()
@@ -29,6 +30,43 @@ namespace TrelloBack.Controllers
 
             return Json(listes);
         }
+        */
+
+        [HttpGet]
+        [Route("/listes/{id}")]
+        public IActionResult getListes(int? id)
+        {
+            //recuperer une liste de users
+
+            Console.WriteLine("-----getListes-----");
+            
+            //renvoyer la liste en json
+
+
+            Console.WriteLine("gate 1 - GetListes");
+            IQueryable<Liste> listes = _context.Listes;
+            if (id != null)
+            {
+                listes = listes.Where(m => m.IdProjet == id); //.OrderByDescending(m => m.Date);
+            }
+
+            return Json(listes);
+        }
+        /*
+        [HttpGet]
+        [Route("/messages")]
+        public IActionResult GetMessages(int? threadId)
+        {
+            Console.WriteLine("gate 1 - GetMessages");
+            IQueryable<Message> messages = _context.Messages;
+            if (threadId != null)
+            {
+                messages = messages.Where(m => m.ThreadId == threadId).OrderByDescending(m => m.Date);
+            }
+
+            return Json(messages);
+        }
+        */
 
         [HttpPost]
         [Route("/listes")]

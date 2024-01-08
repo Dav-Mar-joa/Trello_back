@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace TrelloBack;
+namespace TrelloBack.Models;
 
 public partial class DbTrelloContext : DbContext
 {
@@ -33,7 +33,6 @@ public partial class DbTrelloContext : DbContext
         {
             entity.ToTable("Carte");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.DateCreation).HasColumnType("DATE");
 
             entity.HasOne(d => d.IdListeNavigation).WithMany(p => p.Cartes).HasForeignKey(d => d.IdListe);
@@ -43,7 +42,6 @@ public partial class DbTrelloContext : DbContext
         {
             entity.ToTable("Commentaire");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.DateCreation).HasColumnType("DATE");
 
             entity.HasOne(d => d.IdCarteNavigation).WithMany(p => p.Commentaires).HasForeignKey(d => d.IdCarte);
@@ -53,8 +51,6 @@ public partial class DbTrelloContext : DbContext
         {
             entity.ToTable("Liste");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
-
             entity.HasOne(d => d.IdProjetNavigation).WithMany(p => p.Listes).HasForeignKey(d => d.IdProjet);
         });
 
@@ -62,7 +58,6 @@ public partial class DbTrelloContext : DbContext
         {
             entity.ToTable("Projet");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.DateCreation).HasColumnType("DATE");
         });
 

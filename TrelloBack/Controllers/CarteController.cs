@@ -17,13 +17,13 @@ namespace TrelloBack.Controllers
 
 
         [HttpGet]
-        [Route("/cartes")]
-        public IActionResult getCartes()
+        [Route("/cartes/{id}")]
+        public IActionResult getCartes(int? id)
         {
             //recuperer une carte de users
 
             Console.WriteLine("-----getCartes-----");
-            var cartes = _context.Cartes;
+            var cartes = _context.Cartes.Where((carte)=> carte.IdListe == id);
 
             //renvoyer la carte en json
 
@@ -49,6 +49,11 @@ namespace TrelloBack.Controllers
         {
             Console.WriteLine($"---------newCarte id : {newCarte.Id}--------");
             Console.WriteLine($"---------newCarte id : {newCarte.Description}--------");
+            Console.WriteLine($"---------newCarte id : {newCarte.Titre}--------");
+            Console.WriteLine($"---------newCarte id : {newCarte.DateCreation}--------");
+            Console.WriteLine($"---------newCarte id : {newCarte.IdListe}--------");
+            Console.WriteLine($"---------newCarte id : {newCarte.Commentaires.ToString()}--------");
+
 
             try
             {
@@ -110,7 +115,7 @@ namespace TrelloBack.Controllers
                 }
         */
         [HttpDelete]
-        [Route("cartes")]
+        [Route("cartes/{id}")]
         // On en enlevé le /{id}
         public IActionResult DeleteCarte(int id)
         {

@@ -17,13 +17,13 @@ namespace TrelloBack.Controllers
 // -- requete pour les commentaires ---------
 
         [HttpGet]
-        [Route("/commentaires")]
-        public IActionResult getCommentaires()
+        [Route("/commentaires/{id}")]
+        public IActionResult getCommentaires(int? id)
         {
             //recuperer une liste de users
 
             Console.WriteLine("-----getCommentaires-----");
-            var commentaires = _context.Commentaires;
+            var commentaires = _context.Commentaires.Where((commentaires)=>commentaires.IdCarte == id);
 
             //renvoyer la liste en json
 
