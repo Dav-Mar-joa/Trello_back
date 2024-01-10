@@ -41,6 +41,7 @@ namespace TrelloBack.Controllers
         public IActionResult GetProjets()
         {
             Console.WriteLine("-----getProjets-----");
+            Console.WriteLine($"-----{DateTime.Now}-----");
 
             // Récupérer une liste de projets avec leurs listes et cartes associées
             var projets = _context.Projets

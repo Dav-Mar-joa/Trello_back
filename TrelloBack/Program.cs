@@ -13,9 +13,10 @@ namespace TrelloBack
 
             builder.Services.AddDbContext<DbTrelloContext>();
 
-            builder.Services.AddCors(options => options.AddPolicy(name: "fontendui",
+            builder.Services.AddCors(options => options.AddPolicy(name: "FrontEndUI",
                policy => {
-                   policy.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
+                   //policy.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
+                   policy.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
                }
                ));
 
@@ -28,7 +29,7 @@ namespace TrelloBack
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseCors("fontendui");
+            app.UseCors("FrontEndUI");
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

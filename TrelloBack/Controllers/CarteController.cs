@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TrelloBack.Models;
 
 namespace TrelloBack.Controllers
@@ -48,18 +49,17 @@ namespace TrelloBack.Controllers
         public IActionResult createCarte(Carte newCarte)
         {
             Console.WriteLine($"---------newCarte id : {newCarte.Id}--------");
-            Console.WriteLine($"---------newCarte id : {newCarte.Description}--------");
-            Console.WriteLine($"---------newCarte id : {newCarte.Titre}--------");
-            Console.WriteLine($"---------newCarte id : {newCarte.DateCreation}--------");
-            Console.WriteLine($"---------newCarte id : {newCarte.IdListe}--------");
-            Console.WriteLine($"---------newCarte id : {newCarte.Commentaires.ToString()}--------");
-
+            Console.WriteLine($"---------newCarte Description : {newCarte.Description}--------");
+            Console.WriteLine($"---------newCarte Titre : {newCarte.Titre}--------");
+            Console.WriteLine($"---------newCarte DateCreation : {newCarte.DateCreation}--------");
+            Console.WriteLine($"---------newCarte IdListe : {newCarte.IdListe}--------");
+            Console.WriteLine($"---------newCarte Commentaires : {newCarte.Commentaires.ToString()}--------");
 
             try
             {
                 if (newCarte == null)
                 {
-                    return BadRequest("Les donn�es du carte sont nulles.");
+                    return BadRequest("Les données de carte sont nulles.");
                 }
 
                 _context.Cartes.Add(newCarte);
@@ -81,20 +81,31 @@ namespace TrelloBack.Controllers
         public IActionResult updateCarte(int id, Carte updatedCarte)
         {
             Console.WriteLine($"------updatedCarte {id}--------");
-            var existingCarte = _context.Cartes.Find(id);
+            try
+            {
+                var existingCarte = _context.Cartes.Find(id);
 
-            existingCarte.Titre = updatedCarte.Titre;
-            existingCarte.Description = updatedCarte.Description;
-            existingCarte.DateCreation = updatedCarte.DateCreation;
-            existingCarte.IdListe = updatedCarte.IdListe;
+                existingCarte.Titre = updatedCarte.Titre;
+                existingCarte.Description = updatedCarte.Description;
+                existingCarte.DateCreation = updatedCarte.DateCreation;
+                existingCarte.IdListe = updatedCarte.IdListe;
 
 
 
 
-            _context.Update(existingCarte);
-            _context.SaveChanges();
+                _context.Update(existingCarte);
+                _context.SaveChanges();
 
-            return Json(existingCarte);
+                return Json(existingCarte);
+
+                // Votre code ici
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Une erreur s'est produite : {ex.Message}");
+                return StatusCode(500, "Une erreur s'est produite lors de la mise à jour de la carte.");
+            }
+
         }
 
         /*
@@ -122,7 +133,7 @@ namespace TrelloBack.Controllers
             Console.WriteLine($"------ Delete carte {id} --------");
 
             // Vérifiez si le carte avec l'ID spécifié existe
-            var carte = _context.Cartes.Find(id);
+            var carte = _context.Cartes.Include((x)=>x.Commentaires).ToList().Find(x => x.Id == id);
 
             if (carte == null)
             {
