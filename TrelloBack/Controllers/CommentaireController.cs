@@ -23,7 +23,7 @@ namespace TrelloBack.Controllers
             //recuperer une liste de users
 
             Console.WriteLine("-----getCommentaires-----");
-            var commentaires = _context.Commentaires.Where((commentaires)=>commentaires.IdCarte == id);
+            var commentaires = _context.Commentaires.Where((commentaires)=>commentaires.idCarte == id);
 
             //renvoyer la liste en json
 
@@ -34,8 +34,8 @@ namespace TrelloBack.Controllers
         [Route("/commentaires")]
         public IActionResult createCommentaire(Commentaire newCommentaire)
         {
-            Console.WriteLine($"---------newCommentaire id : {newCommentaire.Id}--------");
-            Console.WriteLine($"---------newCommentaire nom : {newCommentaire.Contenu}--------");
+            Console.WriteLine($"---------newCommentaire id : {newCommentaire.id}--------");
+            Console.WriteLine($"---------newCommentaire nom : {newCommentaire.contenu}--------");
             try
             {
                 if (newCommentaire == null)
@@ -64,9 +64,9 @@ namespace TrelloBack.Controllers
             Console.WriteLine($"------updatedCommentaire {id}--------");
             var existingCommentaire = _context.Commentaires.Find(id);
 
-            existingCommentaire.Contenu = updatedCommentaire.Contenu;
-            existingCommentaire.DateCreation = updatedCommentaire.DateCreation;
-            existingCommentaire.IdCarte = updatedCommentaire.IdCarte;
+            existingCommentaire.contenu = updatedCommentaire.contenu;
+            existingCommentaire.dateCreation = updatedCommentaire.dateCreation;
+            existingCommentaire.idCarte = updatedCommentaire.idCarte;
 
 
             _context.Update(existingCommentaire);

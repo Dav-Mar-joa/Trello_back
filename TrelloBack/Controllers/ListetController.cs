@@ -47,7 +47,7 @@ namespace TrelloBack.Controllers
             IQueryable<Liste> listes = _context.Listes;
             if (id != null)
             {
-                listes = listes.Where(m => m.IdProjet == id); //.OrderByDescending(m => m.Date);
+                listes = listes.Where(m => m.idProjet == id); //.OrderByDescending(m => m.Date);
             }
 
             return Json(listes);
@@ -72,8 +72,8 @@ namespace TrelloBack.Controllers
         [Route("/listes")]
         public IActionResult createListe(Liste newListe)
         {
-            Console.WriteLine($"---------newListe id : {newListe.Id}--------");
-            Console.WriteLine($"---------newListe nom : {newListe.Nom}--------");
+            Console.WriteLine($"---------newListe id : {newListe.id}--------");
+            Console.WriteLine($"---------newListe nom : {newListe.nom}--------");
             try
             {
                 if (newListe == null)
@@ -102,8 +102,8 @@ namespace TrelloBack.Controllers
             Console.WriteLine($"------updatedListe {id}--------");
             var existingListe = _context.Listes.Find(id);
 
-            existingListe.Nom= updatedListe.Nom;
-            existingListe.IdProjet = updatedListe.IdProjet;
+            existingListe.nom= updatedListe.nom;
+            existingListe.idProjet = updatedListe.idProjet;
 
             _context.Update(existingListe);
             _context.SaveChanges();

@@ -47,34 +47,34 @@ namespace TrelloBack.Controllers
             var projets = _context.Projets
                 .Select(proj => new Projet
                 {
-                    Id = proj.Id,
-                    Nom = proj.Nom,
-                    Description = proj.Description,
-                    DateCreation = proj.DateCreation,
-                    Listes = _context.Listes
-                        .Where(liste => liste.IdProjet == proj.Id)
+                    id = proj.id,
+                    nom = proj.nom,
+                    description = proj.description,
+                    dateCreation = proj.dateCreation,
+                    listes = _context.Listes
+                        .Where(liste => liste.idProjet == proj.id)
                         .Select(liste => new Liste
                         {
-                            Id = liste.Id,
-                            IdProjet = liste.IdProjet,
-                            Nom = liste.Nom,
-                            Cartes = _context.Cartes
-                                .Where(carte => carte.IdListe == liste.Id)
+                            id = liste.id,
+                            idProjet = liste.idProjet,
+                            nom = liste.nom,
+                            cartes = _context.Cartes
+                                .Where(carte => carte.idListe == liste.id)
                                 .Select(carte => new Carte
                                 {
-                                    Id = carte.Id,
-                                    IdListe = carte.IdListe,
-                                    Titre = carte.Titre,
-                                    Description = carte.Description,
-                                    DateCreation = carte.DateCreation,
-                                    Commentaires = _context.Commentaires
-                                        .Where(commentaire => commentaire.IdCarte == carte.Id)
+                                    id = carte.id,
+                                    idListe = carte.idListe,
+                                    titre = carte.titre,
+                                    description = carte.description,
+                                    dateCreation = carte.dateCreation,
+                                    commentaires = _context.Commentaires
+                                        .Where(commentaire => commentaire.idCarte == carte.id)
                                         .Select(commentaire => new Commentaire
                                         {
-                                            Contenu = commentaire.Contenu,
-                                            Id = commentaire.Id,
-                                            DateCreation = commentaire.DateCreation,
-                                            IdCarte = commentaire.IdCarte
+                                            contenu = commentaire.contenu,
+                                            id = commentaire.id,
+                                            dateCreation = commentaire.dateCreation,
+                                            idCarte = commentaire.idCarte
                                         }).ToList()
                                 }).ToList()
                         }).ToList()
@@ -122,8 +122,8 @@ namespace TrelloBack.Controllers
         [Route("/projets")]
         public IActionResult createProjet(Projet newProjet)
         {
-            Console.WriteLine($"---------newProjet id : {newProjet.Id}--------");
-            Console.WriteLine($"---------newProjet nom : {newProjet.Nom}--------");
+            Console.WriteLine($"---------newProjet id : {newProjet.id}--------");
+            Console.WriteLine($"---------newProjet nom : {newProjet.nom}--------");
             try
             {
                 if (newProjet == null)
@@ -152,9 +152,9 @@ namespace TrelloBack.Controllers
             Console.WriteLine($"------updatedProjet {id}--------");
             var existingProjet = _context.Projets.Find(id);
 
-            existingProjet.Nom= updatedProjet.Nom;
-            existingProjet.Description = updatedProjet.Description;
-            existingProjet.DateCreation = updatedProjet.DateCreation;
+            existingProjet.nom= updatedProjet.nom;
+            existingProjet.description = updatedProjet.description;
+            existingProjet.dateCreation = updatedProjet.dateCreation;
 
             _context.Update(existingProjet);
             _context.SaveChanges();

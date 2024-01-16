@@ -5,13 +5,13 @@ namespace TrelloBack.Models;
 
 public partial class Projet
 {
-    public int? Id { get; set; } = null!;
+    public int? id { get; set; } = null!;
 
-    public string Nom { get; set; } = null!;
+    public string nom { get; set; } = null!;
 
-    public string? Description { get; set; }
+    public string? description { get; set; }
 
-    public DateOnly? DateCreation { get; set; }
+    public DateOnly? dateCreation { get; set; }
 
-    public virtual ICollection<Liste> Listes { get; set; } = new List<Liste>();
+    public virtual ICollection<Liste> listes { get; set; } = new List<Liste>();
 }

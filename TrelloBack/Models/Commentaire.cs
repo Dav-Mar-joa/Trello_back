@@ -5,13 +5,13 @@ namespace TrelloBack.Models;
 
 public partial class Commentaire
 {
-    public int Id { get; set; }
+    public int id { get; set; }
 
-    public string? Contenu { get; set; }
+    public string? contenu { get; set; }
 
-    public DateOnly? DateCreation { get; set; }
+    public DateOnly? dateCreation { get; set; }
 
-    public int? IdCarte { get; set; }
+    public int? idCarte { get; set; }
 
-    public virtual Carte? IdCarteNavigation { get; set; }
+    public virtual Carte? idCarteNavigation { get; set; }
 }

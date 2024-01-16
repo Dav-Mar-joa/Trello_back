@@ -5,13 +5,13 @@ namespace TrelloBack.Models;
 
 public partial class Liste
 {
-    public int Id { get; set; }
+    public int id { get; set; }
 
-    public string Nom { get; set; } = null!;
+    public string nom { get; set; } = null!;
 
-    public int? IdProjet { get; set; }
+    public int? idProjet { get; set; }
 
-    public virtual ICollection<Carte> Cartes { get; set; } = new List<Carte>();
+    public virtual ICollection<Carte> cartes { get; set; } = new List<Carte>();
 
-    public virtual Projet? IdProjetNavigation { get; set; }
+    public virtual Projet? idProjetNavigation { get; set; }
 }

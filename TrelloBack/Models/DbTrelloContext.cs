@@ -70,32 +70,32 @@ public partial class DbTrelloContext : DbContext
         {
             entity.ToTable("Carte");
 
-            entity.Property(e => e.DateCreation).HasColumnType("DATE");
+            entity.Property(e => e.dateCreation).HasColumnType("DATE");
 
-            entity.HasOne(d => d.IdListeNavigation).WithMany(p => p.Cartes).HasForeignKey(d => d.IdListe);
+            entity.HasOne(d => d.idListeNavigation).WithMany(p => p.cartes).HasForeignKey(d => d.idListe);
         });
 
         modelBuilder.Entity<Commentaire>(entity =>
         {
             entity.ToTable("Commentaire");
 
-            entity.Property(e => e.DateCreation).HasColumnType("DATE");
+            entity.Property(e => e.dateCreation).HasColumnType("DATE");
 
-            entity.HasOne(d => d.IdCarteNavigation).WithMany(p => p.Commentaires).HasForeignKey(d => d.IdCarte);
+            entity.HasOne(d => d.idCarteNavigation).WithMany(p => p.commentaires).HasForeignKey(d => d.idCarte);
         });
 
         modelBuilder.Entity<Liste>(entity =>
         {
             entity.ToTable("Liste");
 
-            entity.HasOne(d => d.IdProjetNavigation).WithMany(p => p.Listes).HasForeignKey(d => d.IdProjet);
+            entity.HasOne(d => d.idProjetNavigation).WithMany(p => p.listes).HasForeignKey(d => d.idProjet);
         });
 
         modelBuilder.Entity<Projet>(entity =>
         {
             entity.ToTable("Projet");
 
-            entity.Property(e => e.DateCreation).HasColumnType("DATE");
+            entity.Property(e => e.dateCreation).HasColumnType("DATE");
         });
 
         OnModelCreatingPartial(modelBuilder);

@@ -5,17 +5,17 @@ namespace TrelloBack.Models;
 
 public partial class Carte
 {
-    public int Id { get; set; }
+    public int id { get; set; }
 
-    public string Titre { get; set; } = null!;
+    public string titre { get; set; } = null!;
 
-    public string? Description { get; set; }
+    public string? description { get; set; }
 
-    public DateOnly? DateCreation { get; set; }
+    public DateOnly? dateCreation { get; set; }
 
-    public int? IdListe { get; set; }
+    public int? idListe { get; set; }
 
-    public virtual ICollection<Commentaire> Commentaires { get; set; } = new List<Commentaire>();
+    public virtual ICollection<Commentaire> commentaires { get; set; } = new List<Commentaire>();
 
-    public virtual Liste? IdListeNavigation { get; set; }
+    public virtual Liste? idListeNavigation { get; set; }
 }

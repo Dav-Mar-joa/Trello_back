@@ -24,7 +24,7 @@ namespace TrelloBack.Controllers
             //recuperer une carte de users
 
             Console.WriteLine("-----getCartes-----");
-            var cartes = _context.Cartes.Where((carte)=> carte.IdListe == id);
+            var cartes = _context.Cartes.Where((carte)=> carte.idListe == id);
 
             //renvoyer la carte en json
 
@@ -46,14 +46,14 @@ namespace TrelloBack.Controllers
 
         [HttpPost]
         [Route("/cartes")]
-        public IActionResult createCarte(Carte newCarte)
+        public IActionResult createCarte([FromBody]Carte newCarte)
         {
-            Console.WriteLine($"---------newCarte id : {newCarte.Id}--------");
-            Console.WriteLine($"---------newCarte Description : {newCarte.Description}--------");
-            Console.WriteLine($"---------newCarte Titre : {newCarte.Titre}--------");
-            Console.WriteLine($"---------newCarte DateCreation : {newCarte.DateCreation}--------");
-            Console.WriteLine($"---------newCarte IdListe : {newCarte.IdListe}--------");
-            Console.WriteLine($"---------newCarte Commentaires : {newCarte.Commentaires.ToString()}--------");
+            Console.WriteLine($"---------newCarte id : {newCarte.id}--------");
+            Console.WriteLine($"---------newCarte Description : {newCarte.description}--------");
+            Console.WriteLine($"---------newCarte Titre : {newCarte.titre}--------");
+            Console.WriteLine($"---------newCarte DateCreation : {newCarte.dateCreation}--------");
+            Console.WriteLine($"---------newCarte IdListe : {newCarte.idListe}--------");
+            Console.WriteLine($"---------newCarte Commentaires : {newCarte.commentaires.ToString()}--------");
 
             try
             {
@@ -76,19 +76,25 @@ namespace TrelloBack.Controllers
         }
 
         [HttpPut]
-        [Route("/cartes")]
+        [Route("/cartes/{id}")]
         // On en enlevé le /{id}
-        public IActionResult updateCarte(int id, Carte updatedCarte)
+        public IActionResult updateCarte(int id, [FromBody]Carte updatedCarte)
         {
             Console.WriteLine($"------updatedCarte {id}--------");
+            Console.WriteLine($"---------newCarte Description : {updatedCarte.description}--------");
+            Console.WriteLine($"---------newCarte Titre : {updatedCarte.titre}--------");
+            Console.WriteLine($"---------newCarte DateCreation : {updatedCarte.dateCreation}--------");
+            Console.WriteLine($"---------newCarte IdListe : {updatedCarte.idListe}--------");
+            Console.WriteLine($"---------newCarte Commentaires : {updatedCarte.commentaires.ToString()}--------");
+
             try
             {
                 var existingCarte = _context.Cartes.Find(id);
 
-                existingCarte.Titre = updatedCarte.Titre;
-                existingCarte.Description = updatedCarte.Description;
-                existingCarte.DateCreation = updatedCarte.DateCreation;
-                existingCarte.IdListe = updatedCarte.IdListe;
+                existingCarte.titre = updatedCarte.titre;
+                existingCarte.description = updatedCarte.description;
+                existingCarte.dateCreation = updatedCarte.dateCreation;
+                existingCarte.idListe = updatedCarte.idListe;
 
 
 
@@ -133,7 +139,7 @@ namespace TrelloBack.Controllers
             Console.WriteLine($"------ Delete carte {id} --------");
 
             // Vérifiez si le carte avec l'ID spécifié existe
-            var carte = _context.Cartes.Include((x)=>x.Commentaires).ToList().Find(x => x.Id == id);
+            var carte = _context.Cartes.Include((x)=>x.commentaires).ToList().Find(x => x.id == id);
 
             if (carte == null)
             {
