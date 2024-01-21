@@ -46,7 +46,7 @@ namespace TrelloBack.Controllers
 
         [HttpPost]
         [Route("/cartes")]
-        public IActionResult createCarte([FromBody]Carte newCarte)
+        public IActionResult createCarte([FromBody] Carte newCarte)
         {
             Console.WriteLine($"---------newCarte id : {newCarte.id}--------");
             Console.WriteLine($"---------newCarte Description : {newCarte.description}--------");
@@ -78,7 +78,7 @@ namespace TrelloBack.Controllers
         [HttpPut]
         [Route("/cartes/{id}")]
         // On en enlevé le /{id}
-        public IActionResult updateCarte(int id, [FromBody]Carte updatedCarte)
+        public IActionResult updateCarte(int id, [FromBody] Carte updatedCarte)
         {
             Console.WriteLine($"------updatedCarte {id}--------");
             Console.WriteLine($"---------newCarte Description : {updatedCarte.description}--------");
@@ -95,9 +95,6 @@ namespace TrelloBack.Controllers
                 existingCarte.description = updatedCarte.description;
                 existingCarte.dateCreation = updatedCarte.dateCreation;
                 existingCarte.idListe = updatedCarte.idListe;
-
-
-
 
                 _context.Update(existingCarte);
                 _context.SaveChanges();

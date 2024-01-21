@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading;
+using Microsoft.EntityFrameworkCore;
 using TrelloBack.Models;
 
 namespace TrelloBack.Controllers
@@ -70,7 +70,7 @@ namespace TrelloBack.Controllers
 
         [HttpPost]
         [Route("/listes")]
-        public IActionResult createListe(Liste newListe)
+        public IActionResult createListe([FromBody] Liste newListe)
         {
             Console.WriteLine($"---------newListe id : {newListe.id}--------");
             Console.WriteLine($"---------newListe nom : {newListe.nom}--------");
@@ -95,9 +95,9 @@ namespace TrelloBack.Controllers
         }
 
         [HttpPut]
-        [Route("/listes")]
+        [Route("/listes/{id}")]
         // On en enlevé le /{id}
-        public IActionResult updateThread(int id, Liste updatedListe)
+        public IActionResult updateThread(int id, [FromBody] Liste updatedListe)
         {
             Console.WriteLine($"------updatedListe {id}--------");
             var existingListe = _context.Listes.Find(id);
@@ -112,14 +112,15 @@ namespace TrelloBack.Controllers
         }
 
         [HttpDelete]
-        [Route("listes")]
+        [Route("listes/{id}")]
         // On en enlevé le /{id}
         public IActionResult DeleteListe(int id)
         {
             Console.WriteLine($"------ Delete liste {id} --------");
 
             // Vérifiez si le liste avec l'ID spécifié existe
-            var liste = _context.Listes.Find(id);
+            // var liste = _context.Listes.Find(id);
+            var liste = _context.Listes.Include((x) => x.cartes).ThenInclude((x) => x.commentaires).ToList().Find(x => x.id == id);
 
             if (liste == null)
             {

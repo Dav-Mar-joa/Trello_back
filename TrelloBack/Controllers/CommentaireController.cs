@@ -32,7 +32,7 @@ namespace TrelloBack.Controllers
 
         [HttpPost]
         [Route("/commentaires")]
-        public IActionResult createCommentaire(Commentaire newCommentaire)
+        public IActionResult createCommentaire([FromBody] Commentaire newCommentaire)
         {
             Console.WriteLine($"---------newCommentaire id : {newCommentaire.id}--------");
             Console.WriteLine($"---------newCommentaire nom : {newCommentaire.contenu}--------");
@@ -57,9 +57,9 @@ namespace TrelloBack.Controllers
         }
 
         [HttpPut]
-        [Route("/commentaires")]
+        [Route("/commentaires/{id}")]
         // On en enlevé le /{id}
-        public IActionResult updateCommentaire(int id, Commentaire updatedCommentaire)
+        public IActionResult updateCommentaire(int id, [FromBody] Commentaire updatedCommentaire)
         {
             Console.WriteLine($"------updatedCommentaire {id}--------");
             var existingCommentaire = _context.Commentaires.Find(id);
@@ -76,7 +76,7 @@ namespace TrelloBack.Controllers
         }
 
         [HttpDelete]
-        [Route("commentaires")]
+        [Route("commentaires/{id}")]
         // On en enlevé le /{id}
         public IActionResult DeleteCommentaire(int id)
         {

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TrelloBack.Models;
 
 namespace TrelloBack.Controllers
@@ -120,7 +121,7 @@ namespace TrelloBack.Controllers
         */
         [HttpPost]
         [Route("/projets")]
-        public IActionResult createProjet(Projet newProjet)
+        public IActionResult createProjet([FromBody] Projet newProjet)
         {
             Console.WriteLine($"---------newProjet id : {newProjet.id}--------");
             Console.WriteLine($"---------newProjet nom : {newProjet.nom}--------");
@@ -145,9 +146,9 @@ namespace TrelloBack.Controllers
         }
 
         [HttpPut]
-        [Route("/projets")]
+        [Route("/projets/{id}")]
         // On en enlevé le /{id}
-        public IActionResult updateProjet(int id, Projet updatedProjet)
+        public IActionResult updateProjet(int id, [FromBody] Projet updatedProjet)
         {
             Console.WriteLine($"------updatedProjet {id}--------");
             var existingProjet = _context.Projets.Find(id);
@@ -163,14 +164,15 @@ namespace TrelloBack.Controllers
         }
 
         [HttpDelete]
-        [Route("projets")]
+        [Route("projets/{id}")]
         // On en enlevé le /{id}
         public IActionResult DeleteProjet(int id)
         {
             Console.WriteLine($"------ Delete projet {id} --------");
 
             // Vérifiez si le projet avec l'ID spécifié existe
-            var projet = _context.Projets.Find(id);
+            //var projet = _context.Projets.Find(id);
+            var projet = _context.Projets.Include((x) => x.listes).ThenInclude((x) => x.cartes).ThenInclude((x) => x.commentaires).ToList().Find(x => x.id == id);
 
             if (projet == null)
             {
