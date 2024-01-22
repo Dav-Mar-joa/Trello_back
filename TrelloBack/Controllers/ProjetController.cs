@@ -132,6 +132,8 @@ namespace TrelloBack.Controllers
                     return BadRequest("Les donn�es du projet sont nulles.");
                 }
 
+               /* if (newProjet.id == -1)
+                    newProjet.id = null;*/
                 _context.Projets.Add(newProjet);
                 _context.SaveChanges();
 

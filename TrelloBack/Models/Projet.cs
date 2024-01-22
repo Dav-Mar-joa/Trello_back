@@ -5,7 +5,7 @@ namespace TrelloBack.Models;
 
 public partial class Projet
 {
-    public int? id { get; set; } = null!;
+    public int id { get; set; }
 
     public string nom { get; set; } = null!;
 
