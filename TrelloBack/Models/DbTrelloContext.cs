@@ -7,7 +7,7 @@ namespace TrelloBack.Models;
 public partial class DbTrelloContext : DbContext
 {
 
-    bool SQL_Server=false;
+    bool SQL_Server=true;
     
     public DbTrelloContext()
     {
